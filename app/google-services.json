@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "600428272150",
+    "firebase_url": "https://infinitour-b0754.firebaseio.com",
+    "project_id": "infinitour-b0754",
+    "storage_bucket": "infinitour-b0754.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600428272150:android:e9044f70e814a4cd",
+        "android_client_info": {
+          "package_name": "infinitour.code.com.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "600428272150-ur15573j36pk32c1deh54g7epnt1fqqb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "infinitour.code.com.myapplication",
+            "certificate_hash": "d8a62420f481959d9837f20ec93919368f427b73"
+          }
+        },
+        {
+          "client_id": "600428272150-ifhppkvl6fm8bun0frch3f03obeiv6g5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-_zLApbpZT_uUOZL0cWyPMR5BOzrlc0Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "600428272150-ifhppkvl6fm8bun0frch3f03obeiv6g5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
