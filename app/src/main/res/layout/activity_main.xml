@@ -4,23 +4,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MainActivity">
+    tools:context=".Activity.MainActivity"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="#1d3b33"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo_transparent"/>
+
+        <TextView
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/intro_text"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            >
+
+        </TextView>
+
+
+
+    </LinearLayout>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="@string/intro_text"
-        android:textSize="25sp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="253dp"
         android:gravity="center"
-        android:layout_marginTop="50dp"/>
+        android:text="@string/description_text"
+        android:textColor="#1d3b33"
+        android:textSize="20sp">
 
-    <Button
+    </TextView>
+
+
+
+
+
+    <com.spark.submitbutton.SubmitButton
         android:id="@+id/btn_main_go_to_map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="112dp"
         android:gravity="center"
-        android:text="Let's Go" />
+        android:text="set my field location"
+        android:textColor="@color/gray"
+        app:sub_btn_background="#00F0F8FF"
+        app:sub_btn_duration="3000"
+        app:sub_btn_line_color="@color/colorPrimaryDark"
+        app:sub_btn_ripple_color="@color/colorPrimary"
+        app:sub_btn_tick_color="@color/white" />
 
 
 </RelativeLayout>

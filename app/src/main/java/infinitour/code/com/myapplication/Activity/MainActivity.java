@@ -34,6 +34,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.spark.submitbutton.SubmitButton;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,7 @@ import static infinitour.code.com.myapplication.constants.constants.PERMISSIONS_
 import static infinitour.code.com.myapplication.constants.constants.PERMISSIONS_REQUEST_ENABLE_GPS;
 
 public class MainActivity extends AppCompatActivity {
-    Button gotomap;
+    SubmitButton gotomap;
     DatabaseReference myRef;
     double  longitude,latitude;
     public boolean mLocationPermissionGranted = false;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
         mfusedlocationclient = LocationServices.getFusedLocationProviderClient(this);
         myRef = firebaseDatabase.getReference("Country");
-        gotomap = (Button) findViewById(R.id.btn_main_go_to_map);
+        gotomap = (SubmitButton) findViewById(R.id.btn_main_go_to_map);
         gotomap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,9 +70,27 @@ public class MainActivity extends AppCompatActivity {
 
                 intent.putExtra("long",longitude);
                 intent.putExtra("lat",latitude);
-                startActivity(intent);
+                Thread timer = new Thread() {
+                    public void run(){
+                        try {
+                            Thread.sleep(3100);
+                            Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+                            intent.putExtra("long",longitude);
+                            intent.putExtra("lat",latitude);
+                            startActivity(intent);
+                                finish();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+                timer.start();
+
+
                 // show_dialog();
             }
+
 
         });
 

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MapsActivity">
+    tools:context=".Activity.MapsActivity"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/l_layout_map"
-        android:orientation="horizontal">
-
-        <TextView
+        android:background="@color/Dark">
+         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="@string/map_bar"
-            android:textSize="15sp"/>
-
+            android:textSize="21dp"
+            android:textColor="@color/white"
+            android:drawableLeft="@drawable/ic_location"/>
     </LinearLayout>
 
 
@@ -33,31 +33,44 @@
 
         </com.google.android.gms.maps.MapView>
 
-        <Button
+        <ImageView
             android:id="@+id/btn_map_remove_markers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:text="Remove" />
+            android:layout_marginBottom="38dp"
+            android:background="@drawable/button"
+            android:src="@drawable/ic_clear" />
 
-        <Button
+        <ImageView
             android:id="@+id/btn_map_draw"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toStartOf="@+id/btn_map_remove_markers"
-            android:text="Draw" />
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/btn_map_remove_markers"
+            android:layout_marginEnd="64dp"
+            android:background="@drawable/button"
+            android:src="@drawable/ic_check"/>
 
-        <Button
+
+        <com.spark.submitbutton.SubmitButton
             android:id="@+id/btn_map_goto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="272dp"
+            android:layout_height="102dp"
             android:layout_alignParentBottom="true"
-            android:layout_toStartOf="@+id/btn_map_draw"
-            android:text="goto" />
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="continue"
+            android:textColor="@color/gray"
+            app:sub_btn_background="@color/white"
+            app:sub_btn_duration="3000"
+            app:sub_btn_line_color="@color/colorPrimaryDark"
+            app:sub_btn_ripple_color="@color/colorPrimary"
+            app:sub_btn_tick_color="@color/white" />
+
 
     </RelativeLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

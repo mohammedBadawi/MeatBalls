@@ -10,18 +10,21 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 import java.util.*;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.spark.submitbutton.SubmitButton;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -36,9 +39,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     double longit,latit;
     private static final String TAG = "MapsActivity";
     ArrayList<LatLng>points_of_markers;
-    Button removemarkers;
-    Button draw;
-    Button gotoinfo;
+    ImageView removemarkers;
+    ImageView draw;
+    SubmitButton gotoinfo;
+    int number_of_markers=0;
+    int flag=0;
 
 
     @Override
@@ -56,32 +61,54 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMapView.getMapAsync(this);
         longit= getIntent().getDoubleExtra("long",0.0);
         latit= getIntent().getDoubleExtra("lat",0.0);
-        Log.d(TAG,"YOOOOOOOOOOOOOOOOOOur lond is"+longit);
-        Log.d(TAG,"YOOOOOOOOOOOOOOOOOOur lat is"+longit);
-        removemarkers=(Button)findViewById(R.id.btn_map_remove_markers);
+       // Log.d(TAG,"YOOOOOOOOOOOOOOOOOOur lond is"+longit);
+       // Log.d(TAG,"YOOOOOOOOOOOOOOOOOOur lat is"+longit);
+        removemarkers=(ImageView)findViewById(R.id.btn_map_remove_markers);
         removemarkers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                draw.setVisibility(View.VISIBLE);
+                gotoinfo.setVisibility(View.INVISIBLE);
                 mMap.clear();
                 setmylocation(mMap);
                 points_of_markers.clear();
+                number_of_markers=0;
             }
         });
-        draw=(Button)findViewById(R.id.btn_map_draw);
+        draw=(ImageView)findViewById(R.id.btn_map_draw);
         draw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            draw_polygon(points_of_markers);
+            draw_polygon(points_of_markers);}
 
-            }
         });
-        gotoinfo=(Button)findViewById(R.id.btn_map_goto);
+        gotoinfo=(SubmitButton)findViewById(R.id.btn_map_goto);
         gotoinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MapsActivity.this,info_Activity.class);
-                intent.putExtra("area",get_area(find_sides(points_of_markers)));
-                startActivity(intent);
+                if(number_of_markers==4){
+                    Thread timer = new Thread() {
+                        public void run(){
+                            try {
+                                Thread.sleep(3100);
+                                Intent intent=new Intent(MapsActivity.this,info_Activity.class);
+                                intent.putExtra("area",get_area(find_sides(points_of_markers)));
+                                startActivity(intent);
+                                finish();
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    };
+                    timer.start();
+               }
+                else{Toast.makeText( getApplicationContext(),"please set four points around your location",Toast.LENGTH_LONG).show();
+                    mMap.clear();
+                    points_of_markers.clear();
+                    setmylocation(mMap);
+                    number_of_markers=0;
+                }
             }
         });
 
@@ -117,13 +144,23 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     public void draw_polygon(ArrayList<LatLng>points){
+        if(number_of_markers==4){
+
         PolygonOptions options=new PolygonOptions().fillColor(Color.argb(100, 49, 101, 187))
                 .strokeColor(Color.argb(255, 49, 101, 187));
         for(int i=0;i<points.size();i++){
             options.add(points.get(i));
         }
         mMap.addPolygon(options);
-
+        draw.setVisibility(View.INVISIBLE);
+        gotoinfo.setVisibility(View.VISIBLE);}
+        else{
+            Toast.makeText( getApplicationContext(),"please set four points around your location",Toast.LENGTH_LONG).show();
+            mMap.clear();
+            number_of_markers=0;
+            points_of_markers.clear();
+            setmylocation(mMap);
+        }
 
 
 
@@ -131,7 +168,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
     public void setmylocation(GoogleMap map){
         map.addMarker(new MarkerOptions().position(new LatLng(getIntent().getDoubleExtra("lat",0.0),getIntent().getDoubleExtra("long",0.0)))
-                .title("Your Location"));
+                .title("Your Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
     }
 
     public void setmarkers(LatLng latLng){
@@ -140,6 +177,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         markerOptions.title(latLng.latitude + " : " + latLng.longitude);
         mMap.addMarker(markerOptions);
         points_of_markers.add(latLng);
+        number_of_markers++;
 
 
     }
@@ -189,10 +227,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
        // map.addMarker(new MarkerOptions().position(new LatLng(getIntent().getDoubleExtra("lat",0.0),getIntent().getDoubleExtra("long",0.0)))
          //       .title("Your Location"));
+        gotoinfo.setVisibility(View.INVISIBLE);
+
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
-               setmarkers(latLng);
+                if(number_of_markers<4){
+                    setmarkers(latLng);
+                }
+                else{}
+
+
             }
         });
 

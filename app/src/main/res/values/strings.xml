@@ -2,6 +2,8 @@
     <string name="app_name">My Application</string>
     <string name="maps_api_key">AIzaSyDGOYO3bsiIBkQKzaBEwd5a1DxR7KnXlos</string>
     <string name="title_activity_maps">Map</string>
-    <string name="intro_text">Ready to save 30% of your irrigation water ? </string>
-    <string name="map_bar">Set Your Amazing Field</string>
+    <string name="intro_text">You are about to save 30% of your irrigation water !</string>
+    <string name="description_text">just set your field location
+    and enjoy the results</string>
+    <string name="map_bar">Define your field with only four points</string>
 </resources>
